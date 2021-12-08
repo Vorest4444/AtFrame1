@@ -26,58 +26,72 @@ public class RequestRepo {
 
     public static Request createTrelloBoard(String boardName) {
         Request request=baseTrelloRequest();
-        boardName = "AtFrame";
+        boardName = "try10";
         request.setPath("1/boards/?name="+ boardName+ "&defaultLists=false&key="+ KEY + "&token=" + TOKEN);
         request.setMethod("POST");
         return request;
     }
 
-    public static Request deleteTrelloBoard(String boardId) {
-        Request request=baseTrelloRequest();
-        request.setPath("1/boards/"+boardId+"?key=" + KEY + "&token=" + TOKEN);
+    public static  Request deleteBoard(String BoardId){
+        Request request = baseTrelloRequest();
+        request.setPath("1/boards/"+BoardId+"?key=" + KEY + "&token=" + TOKEN);
         request.setMethod("DELETE");
         return request;
     }
 
     public static Request updateInfoTrelloBoard(String boardId) {
         Request request=baseTrelloRequest();
-        request.setPath("1/boards/"+boardId+"?name=AtFrame&desc=Test&prefs/background=green&key=" + KEY + "&token=" + TOKEN);
-        request.setMethod("PUT");
-        return request;
-    }
-
-    public static Request customTrelloBoard(String boardId, String nameList) {
-        Request request=baseTrelloRequest();
-        request.setPath("1/boards/" + boardId + "/lists?name=" + nameList + "&pos=bottom&key="+ KEY + "&token="+ TOKEN);
+        request.setPath("1/boards/"+boardId+"/labels?name=Green&color=red&key=" + KEY + "&token=" + TOKEN);
         request.setMethod("POST");
         return request;
     }
 
-    public static Request listIdsTrelloBoard(String boardId) {
-        Request request=baseTrelloRequest();
+    public static  Request createTrelloList(String boardId){
+        Request request = baseTrelloRequest();
+        request.setPath("1/boards/"+boardId+"/lists?name=ToDo&pos=bottom&key="+ KEY + "&token=" + TOKEN);
+        request.setMethod("POST");
+        return request;
+    }
+
+    public static Request getidList(String boardId){
+        Request request = baseTrelloRequest();
         request.setPath("1/boards/" + boardId + "/lists?key="+KEY + "&token="+TOKEN);
         request.setMethod("GET");
         return request;
     }
 
-    public static Request createCardTrello(String idList, String nameCart) {
-        Request request=baseTrelloRequest();
-        request.setPath("1/cards?idList=" + idList + "&name=" + nameCart + "&key="+ KEY + "&token="+ TOKEN);
-        request.setMethod("POST");
-        return request;
-    }
-
-    public static Request getCardIdsByListTrello(String idList) {
-        Request request=baseTrelloRequest();
-        request.setPath("1/lists/" + idList + "/cards?key="+ KEY + "&token="+ TOKEN);
+    public static Request getidLabel(String boardId){
+        Request request = baseTrelloRequest();
+        request.setPath("1/boards/" + boardId + "/labels?key="+KEY + "&token="+TOKEN);
         request.setMethod("GET");
         return request;
     }
 
-    public static Request moveCardTrello(String idCart, String newIdList) {
-        Request request=baseTrelloRequest();
-        request.setPath("1/cards/" + idCart + "?idList=" + newIdList + "&key="+ KEY + "&token="+ TOKEN);
-        request.setMethod("PUT");
+    public static Request getidCard(String listid){
+        Request request = baseTrelloRequest();
+        request.setPath("1/lists/" + listid + "/cards?key="+KEY + "&token="+TOKEN);
+        request.setMethod("GET");
         return request;
     }
+
+
+    public  static Request creatteTrelloCard(String listId){
+        Request request = baseTrelloRequest();
+        request.setPath("1/cards?idList=" + listId + "&name=ATframe&key="+ KEY + "&token="+ TOKEN);
+        request.setMethod("POST");
+        return request;
+    }
+
+    public static Request createLabelonCard(String cardId, String labelid){
+        Request request=baseTrelloRequest();
+        request.setPath("1/cards/" + cardId + "/IdLabels?value="+labelid+"&key="+ KEY + "&token="+ TOKEN);
+        request.setMethod("POST");
+        return request;
+
+    }
+
+
+
+
+
 }

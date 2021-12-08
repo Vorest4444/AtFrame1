@@ -1,5 +1,6 @@
 package practice.api.bo;
 
+import org.bouncycastle.cert.ocsp.Req;
 import org.json.JSONArray;
 import org.testng.Assert;
 
@@ -17,53 +18,64 @@ public class Trellobo {
         return createResponse.getBodyAsJson().getString("id");
     }
 
-    public Response deleteBoard(String boardId) {
-        Request deleteRequest = RequestRepo.deleteTrelloBoard(boardId);
+
+    public Response delete(String BoardId){
+        Request deleteRequest = RequestRepo.deleteBoard(BoardId);
         Response deleteResponse=new Client().send(deleteRequest);
-        Assert.assertEquals(deleteResponse.getStatusCode().intValue(),200,"invalid code");
+        Assert.assertEquals(deleteResponse.getStatusCode().intValue(),200,"get wrong");
         return deleteResponse;
     }
+
+
 
     public Response updateBoard(String boardId) {
         Request req = RequestRepo.updateInfoTrelloBoard(boardId);
         Response res=new Client().send(req);
-        Assert.assertEquals(res.getStatusCode().intValue(),200,"invalid code");
+        Assert.assertEquals(res.getStatusCode().intValue(),200,"get wrong");
         return res;
     }
 
-    public Response customBoard(String boardId, String nameList) {
-        Request req = RequestRepo.customTrelloBoard(boardId, nameList);
+
+    public Response createList(String boardId){
+        Request req = RequestRepo.createTrelloList(boardId);
         Response res = new Client().send(req);
-        Assert.assertEquals(res.getStatusCode().intValue(),200,"invalid code");
+        Assert.assertEquals(res.getStatusCode().intValue(),200,"get wrong");
         return res;
+
     }
 
-    public JSONArray getListIds(String boardId) {
-        Request req = RequestRepo.listIdsTrelloBoard(boardId);
+    public JSONArray getListId(String boardId){
+        Request req = RequestRepo.getidList(boardId);
+        Response res = new Client().send(req);
+        Assert.assertEquals(res.getStatusCode().intValue(),200,"get wrong");
+        return new JSONArray(res.getBody());
+    }
+    public JSONArray getLabelid(String boardId){
+        Request req = RequestRepo.getidLabel(boardId);
+        Response res = new Client().send(req);
+        Assert.assertEquals(res.getStatusCode().intValue(),200,"get wrong");
+        return new JSONArray(res.getBody());
+    }
+
+    public Response createCard(String listId){
+        Request req = RequestRepo.creatteTrelloCard(listId);
+        Response res = new Client().send(req);
+        Assert.assertEquals(res.getStatusCode().intValue(),200,"get wrong");
+        return  res;
+    }
+    public JSONArray getCardId(String listId) {
+        Request req = RequestRepo.getidCard(listId);
         Response res = new Client().send(req);
         Assert.assertEquals(res.getStatusCode().intValue(),200,"invalid code");
         return new JSONArray(res.getBody());
     }
 
-    public Response createCard(String idList, String nameCart) {
-        Request req = RequestRepo.createCardTrello(idList, nameCart);
+    public Response addLebel(String cardId, String labelid){
+        Request req = RequestRepo.createLabelonCard(cardId, labelid);
         Response res = new Client().send(req);
-        Assert.assertEquals(res.getStatusCode().intValue(),200,"invalid code");
-        return res;
-    }
+        Assert.assertEquals(res.getStatusCode().intValue(),200,"get wrong");
+        return  res;
 
-    public JSONArray getCardIdsByList(String IdList) {
-        Request req = RequestRepo.getCardIdsByListTrello(IdList);
-        Response res = new Client().send(req);
-        Assert.assertEquals(res.getStatusCode().intValue(),200,"invalid code");
-        return new JSONArray(res.getBody());
-    }
-
-    public Response moveCard(String idCart, String newIdList) {
-        Request req = RequestRepo.moveCardTrello(idCart, newIdList);
-        Response res = new Client().send(req);
-        Assert.assertEquals(res.getStatusCode().intValue(),200,"invalid code");
-        return res;
     }
 
 }
