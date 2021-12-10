@@ -5,6 +5,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import practice.PropertyUtil;
+import practice.hibernate.model.Name;
 import practice.hibernate.model.User;
 
 import java.util.*;
@@ -24,6 +25,7 @@ public class HibernateUtil {
         Properties props = new PropertyUtil().getProp();
         configuration.setProperties(props);
         configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(Name.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties()).build();
         System.out.println("#########Hibernate Java Config serviceRegistry created");

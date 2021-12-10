@@ -2,6 +2,7 @@ package practice.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import practice.hibernate.model.Name;
 import practice.hibernate.model.User;
 
 public class HibernateTest {
@@ -28,6 +29,52 @@ public class HibernateTest {
         return user;
     }
 
+
+
+
+
+
+
+    public static Name setName(String name) {
+        Name naame = new Name();
+        naame.setName(name);
+        try {
+            sessionFactory = new HibernateUtil().getSessionFactory();
+            Session session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+            System.out.println("Name ID=" + session.save(naame));
+            session.getTransaction().commit();
+        }
+        catch (Exception e ){ e.printStackTrace(); }
+        finally {
+            sessionFactory.close();
+        }
+        return naame;
+    }
+
+
+
+
+    public static Name getName(Integer id) {
+        Name name = null;
+        try {
+            sessionFactory = new HibernateUtil().getSessionFactory();
+            Session session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+            //Get Name
+            name = session.get(Name.class, id);
+            System.out.println("name = " + name.getID());
+
+            session.getTransaction().commit();
+
+        }
+        catch (Exception e ){ e.printStackTrace(); }
+        finally {
+            sessionFactory.close();
+        }
+        return name;
+    }
+
     public static User getUser(Integer id) {
         User user = null;
         try {
@@ -52,8 +99,10 @@ public class HibernateTest {
     }
 
     public static void main(String[] args) {
-   // User user = setUser("adskaya_drochka","brembo1234344");
-      User user = getUser(1);
+//    User user = setUser("teamfindtop@gmail.com","teamfindtop");
+//        Name name = setName(("Im bot"));
+        Name name = getName(1);
+        User user = getUser(4);
         System.out.println(user.getLogin());
 
     }
