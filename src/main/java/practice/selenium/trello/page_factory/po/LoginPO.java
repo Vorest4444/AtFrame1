@@ -14,9 +14,11 @@ public class LoginPO extends BasicPO {
     private InputElement loginInput;
     @FindBy(xpath = "//input[@id='password']")
     private InputElement passInput;
+
     private InputElement textInput;
 
     private ButtonElement SubmitButton;
+
 
     @Override
     @Step("isOpen")
@@ -35,6 +37,7 @@ public class LoginPO extends BasicPO {
     public LoginPO inputPassword(String pass) {
         System.out.println("inputPassword");
         passInput.sendKeys(pass);
+
         return this;
     }
 
@@ -79,13 +82,6 @@ public class LoginPO extends BasicPO {
         return this;
     }
 
-    @Step("addlist")
-    public LoginPO addlist(){
-        System.out.println("addlist");
-        SubmitButton = new ButtonElement(BrowserFactory.getDriver().findElement( By.xpath("//body/div[@id='trello-root']/div[@id='chrome-container']/div[@class='_2ffa7ex19Eoxvc']/div[@id='surface']/main[@id='popover-boundary']/div/div/div[@id='content']/div[@class='board-wrapper']/div[@class='board-main-content']/div[@class='board-canvas']/div[@id='board']/div[1]/div[1]/div[3]/a[1]")));
-        SubmitButton.click();
-        return this;
-    }
 
     @Step("inputName")
     public LoginPO inputName(String Name) {
@@ -159,15 +155,6 @@ public class LoginPO extends BasicPO {
 
 
 
-    @Step("loginCheck")
-    public HomePO loginCheck() {
-        System.out.println("loginCheck");
-        return new HomePO();
-    }
-
-    @Step("massageSendCheck")
-    public HomePO massageSendCheck() { return new HomePO();  }
-
     @Step("massageSendCheck")
     public HomePO CreateBoardChek() { return new HomePO();  }
 
@@ -197,13 +184,6 @@ public class LoginPO extends BasicPO {
         BrowserFactory.getDriver().get("https://trello.com/login");
         return this;
     }
-    @Step("goToTemplates")
-    @Link("https://trello.com/templates/business")
-    public LoginPO goToTemplates() {
-        System.out.println("goToTemplates");
-        BrowserFactory.getDriver().navigate().to("https://trello.com/templates/business");
-        return this;
+
+
     }
-
-
-}

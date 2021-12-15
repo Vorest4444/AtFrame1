@@ -15,6 +15,18 @@ public class HomePO extends BasicPO {
     private ButtonElement board;
 
 
+    @FindBy(xpath = "//input[@value='Add list']")
+    private ButtonElement cardChek;
+
+    @FindBy(xpath = "//a[@aria-label='Cancel list editing']")
+    private ButtonElement listChek;
+
+
+    @FindBy(xpath = "//span[@class='_1e3OHas5aNG1hj']//*[name()='svg']")
+    private ButtonElement templChek;
+
+
+
     @Override
     @Step("isOpen")
     public boolean isOpen() {
@@ -30,19 +42,19 @@ public class HomePO extends BasicPO {
     @Override
     @Step("isCreateBoard")
     public boolean isCreateList() {
-        return board.waitForMeVisible(10000);
+        return listChek.waitForMeVisible(10000);
     }
     @Override
 
 
     @Step("isCreateBoard")
     public boolean isCreateCard() {
-        return board.waitForMeVisible(10000);
+        return cardChek.waitForMeVisible(10000);
     }
 
     @Step("isCreateBoard")
     public boolean isCreateTempl() {
-        return board.waitForMeVisible(10000);
+        return templChek.waitForMeVisible(10000);
     }
 
 
